@@ -1,0 +1,38 @@
+site_name: Mongomantic
+theme:
+  name: material
+  features:
+    - navigation.tabs
+  logo:
+    assets/logo_white.svg
+
+  palette:
+    # Light mode
+    - deep purple: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: deep-purple
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: deep-purple
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+  font:
+    code: family=Poppins
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true

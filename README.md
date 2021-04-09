@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Build status](https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=master&event=push)](https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild)
+[![Build status](https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push)](https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild)
 [![Python Version](https://img.shields.io/pypi/pyversions/mongomantic.svg)](https://pypi.org/project/mongomantic/)
 [![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/RamiAwar/mongomantic/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
 
@@ -10,7 +10,7 @@
 [![Security: bandit](https://img.shields.io/badge/security-bandit-green.svg)](https://github.com/PyCQA/bandit)
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/RamiAwar/mongomantic/blob/master/.pre-commit-config.yaml)
 [![Semantic Versions](https://img.shields.io/badge/%F0%9F%9A%80-semantic%20versions-informational.svg)](https://github.com/RamiAwar/mongomantic/releases)
-[![License](https://img.shields.io/github/license/RamiAwar/mongomantic)](https://github.com/RamiAwar/mongomantic/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/RamiAwar/mongomantic)](https://github.com/RamiAwar/mongomantic/blob/main/LICENSE)
 
 A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine.
 
@@ -31,9 +31,9 @@ A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mon
 
 ## 🛡 License
 
-[![License](https://img.shields.io/github/license/RamiAwar/mongomantic)](https://github.com/RamiAwar/mongomantic/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/RamiAwar/mongomantic)](https://github.com/RamiAwar/mongomantic/blob/main/LICENSE)
 
-This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/RamiAwar/mongomantic/blob/master/LICENSE) for more details.
+This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/RamiAwar/mongomantic/blob/main/LICENSE) for more details.
 
 ## 📃 Citation
 

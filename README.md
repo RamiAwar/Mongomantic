@@ -18,16 +18,16 @@ A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mon
 
 ## 🚀 TODO
 
-[checkbox:unchecked] Documentation
-[checkbox:checked] Basic API similar to mongoengine, without any queryset logic
-[checkbox:checked] Built on Pydantic models, no other schema required
-[checkbox:checked] BaseRepository responsible for all operations (instead of the model itself)
-[checkbox:unchecked] ProductionRepository derived from BaseRepository with all errors handled
-[checkbox:unchecked] Repository/model plugin framework (ex. SyncablePlugin, TimestampedPlugin, etc.)
-[checkbox:unchecked] Wrapper for aggregation pipelines
-[checkbox:checked] Mongomock tests
-[checkbox:unchecked] Flexible connect() function wrapper around PyMongo client (aliases, replica sets, retry writes, etc.)
-[checkbox:unchecked] Clean up imports and expose essentials in main file
+- [ ] Documentation
+- [x] Basic API similar to mongoengine, without any queryset logic
+- [x] Built on Pydantic models, no other schema required
+- [x] BaseRepository responsible for all operations (instead of the model itself)
+- [ ] ProductionRepository derived from BaseRepository with all errors handled
+- [ ] Repository/model plugin framework (ex. SyncablePlugin, TimestampedPlugin, etc.)
+- [ ] Wrapper for aggregation pipelines
+- [x] Mongomock tests
+- [ ] Flexible connect() function wrapper around PyMongo client (aliases, replica sets, retry writes, etc.)
+- [ ] Clean up imports and expose essentials in main file
 
 ## 🛡 License
 

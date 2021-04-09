@@ -39,6 +39,7 @@ rich = "^9.8.2"
 bson = "^0.5.10"
 pydantic = "^1.8.1"
 pymongo = "^3.11.3"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 darglint = "^1.5.8"

@@ -1,0 +1,10 @@
+# This file contains values from Cookiecutter
+
+default_context:
+  project_name: "mongomantic"
+  project_description: "A MongoDB Python ORM, built on Pydantic and PyMongo."
+  organization: "mongomantic"
+  license: "MIT"
+  version: "0.1.0"
+  github_name: "RamiAwar"
+  email: "rami@hyperchess.com"

@@ -497,7 +497,7 @@ six = ">=1.5"
 
 [[package]]
 name = "pyupgrade"
-version = "2.11.0"
+version = "2.12.0"
 description = "A tool to automatically upgrade syntax for newer versions."
 category = "dev"
 optional = false
@@ -729,7 +729,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "179986b4315982879ce4cecb8b512103846886e87442abaa9e16be1f5de58398"
+content-hash = "fecd0f716dbe8dee6b148300141b52f784a78d6383065bdd72288018b990982a"
 
 [metadata.files]
 appdirs = [
@@ -1021,8 +1021,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.1-py2.py3-none-any.whl", hash = "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"},
 ]
 pyupgrade = [
-    {file = "pyupgrade-2.11.0-py2.py3-none-any.whl", hash = "sha256:47cd92db1675a9043bebbe0b67a103b66527883b35e22634060a6bcb99138baa"},
-    {file = "pyupgrade-2.11.0.tar.gz", hash = "sha256:5dcae14b1c9b7ecce5ec42210528eb30a1a2408613da744f2ba4a9b54b344cf6"},
+    {file = "pyupgrade-2.12.0-py2.py3-none-any.whl", hash = "sha256:024fc6be99c2ccdbc1c9354ac0ab8d5b9e5bf69a5477384677b6c9d8f2ce63bf"},
+    {file = "pyupgrade-2.12.0.tar.gz", hash = "sha256:eef4d77e44e57dfbae897a9a61543be1f34701dbbe51cc18462210021bd28dcf"},
 ]
 pyyaml = [
     {file = "PyYAML-5.4.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:3b2b1824fe7112845700f815ff6a489360226a5609b96ec2190a45e62a9fc922"},

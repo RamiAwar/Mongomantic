@@ -1,6 +1,7 @@
 site_name: Mongomantic
 theme:
   name: material
+  favicon: assets/logo.png
   features:
     - navigation.tabs
   logo:

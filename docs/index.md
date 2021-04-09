@@ -1,6 +1,6 @@
 # Mongomantic
 
-![Placeholder](assets/text_logo.png){ align=center }
+![Logo](assets/text_logo.png){ align=center }
 
 <p align="center">
     <em>Mongomantic = Pymongo + <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a></em>

@@ -1,4 +1,4 @@
-![Logo](assets/text_logo.png){ align=center }
+![Logo](https://github.com/RamiAwar/mongomantic/blob/main/docs/assets/text_logo.png)
 
 <p align="center">
     <em>Mongomantic = Pymongo + <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a></em>

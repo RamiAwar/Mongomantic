@@ -81,3 +81,17 @@ def test_repository_find_invalid_filter(mongodb):
 
     with pytest.raises(InvalidQueryError):
         assert len(list(users)) == 0
+
+
+def test_repository_aggregate(example_user):
+    john = next(
+        UserRepository().aggregate(
+            [
+                {"$match": {"first_name": "John"}},
+            ]
+        )
+    )
+
+    assert isinstance(john, User)
+    assert john.id
+    assert john.first_name == example_user.first_name

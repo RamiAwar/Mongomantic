@@ -124,5 +124,10 @@ class BaseRepository(ABC):
         except Exception as e:
             raise InvalidQueryError(f"Invalid argument types: {e}")
 
-    def aggregate(self, pipeline: List[dict]):
-        pass
+    def aggregate(self, pipeline: List[Dict]):
+        try:
+            results = MongomanticClient.db.__getattr__(self._collection).aggregate(pipeline)
+            for result in results:
+                yield self._model.from_mongo(result)
+        except Exception as e:
+            raise InvalidQueryError(f"Error executing pipeline: {e}")

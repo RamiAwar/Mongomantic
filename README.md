@@ -8,7 +8,7 @@
 <div align="center">
 
 [![Build status](https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push)](https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild)
-[![Python Version](https://img.shields.io/pypi/pyversions/mongomantic.svg)](https://pypi.org/project/mongomantic/)
+<!-- [![Python Version](https://img.shields.io/pypi/pyversions/mongomantic.svg)](https://pypi.org/project/mongomantic/)-->
 [![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/RamiAwar/mongomantic/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)

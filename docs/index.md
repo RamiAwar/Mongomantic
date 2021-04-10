@@ -11,6 +11,12 @@
 
 Pymongo offers a very raw set of CRUD operations, and is not an <a href="https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a">Object Relational Mapper</a>.
 
+Other ORMs like Mongoengine (which Mongomantic is inspired heavily by) require their own schema definition.
+This means that if you want to use Pydantic's data validation along with an ORM like Mongoengine, you would have to
+write two schemas, along with handling the conversion back and forth.
+
+Mongomantic just requires a pydantic model.
+
 ## How?
 
 Basic CRUD operations are exposed through a base repository that can be subclassed.

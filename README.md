@@ -8,7 +8,9 @@
 <div align="center">
 
 [![Build status](https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push)](https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild)
+
 <!-- [![Python Version](https://img.shields.io/pypi/pyversions/mongomantic.svg)](https://pypi.org/project/mongomantic/)-->
+
 [![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/RamiAwar/mongomantic/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -20,6 +22,61 @@
 A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine.
 
 </div>
+
+## API
+
+```python
+from mongomantic import BaseRepository, MongoDBModel
+
+
+class User(MongoDBModel):
+    first_name: str
+    last_name: str
+
+class UserRepository(BaseRepository):
+    @property
+    def _model(self):  # Define model type
+        return User
+
+    @property
+    def _collection(self):  # Define collection name
+        return "user"
+
+user = User(first_name="John", last_name="Smith")
+user_repo = UserRepository()
+
+user = user_repo.save(user)
+user.id  # ObjectId that was saved
+
+```
+
+## Your Opinion is Needed
+
+Mongomantic can be kept as a simple wrapper around PyMongo, or developed into a miniature version of Mongoengine that's built on Pydantic.
+The first direction would result in the following API:
+
+```
+# Direct pymongo wrapper
+users = user_repo.find({"$and": [{"age": {"$gt": 12}}, {"name": "John"}]})
+
+# But matches can be done as keyword arguments
+john = user_repo.find(name="John")
+```
+
+On the other hand, a more complex version of Mongomantic could lead to:
+
+```
+# More Pythonic way of writing queries
+users = user_repo.find(User.age > 12, name="John")
+
+# Matches still compact
+john = user_repo.find(name="John")
+```
+
+Please submit your vote below.
+
+[![](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20MongoDB%20expressions%20to%20filter%20results)](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20MongoDB%20expressions%20to%20filter%20results/vote)
+[![](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20Python%20operators%20to%20filter%20results)](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20Python%20operators%20to%20filter%20results/vote)
 
 ## 🚀 TODO
 

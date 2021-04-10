@@ -25,7 +25,7 @@ def test_repository_save(mongodb):
 
 
 @pytest.fixture()
-def example_user(mongodb):
+def example_user(mongodb) -> User:
     user = User(first_name="John", last_name="Smith", email="john@google.com", age=29)
 
     user_repo = UserRepository()
@@ -41,7 +41,7 @@ def test_repository_get(example_user):
 
 def test_repository_get_does_not_exist(mongodb):
     with pytest.raises(DoesNotExistError):
-        user = UserRepository().get(age=1)
+        UserRepository().get(age=1)
 
 
 def test_repository_get_with_duplicate(mongodb):
@@ -54,7 +54,7 @@ def test_repository_get_with_duplicate(mongodb):
     user_repo.save(duplicate)
 
     with pytest.raises(MultipleObjectsReturnedError):
-        res = user_repo.get(age=29)
+        user_repo.get(age=29)
 
 
 def test_repository_find(example_user):

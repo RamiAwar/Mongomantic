@@ -54,6 +54,7 @@ pylint = "^2.6.0"
 pydocstyle = "^5.1.1"
 pre-commit = "^2.9.3"
 mongomock = "^3.22.1"
+flake8 = "^3.9.0"
 
 [tool.black]
 # https://github.com/psf/black

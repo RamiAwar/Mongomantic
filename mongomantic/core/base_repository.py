@@ -1,10 +1,9 @@
-from typing import Iterator, List, Type, Union
+from typing import Dict, Iterator, List, Tuple, Type
 
 from abc import ABC, abstractmethod
 
 from bson import ObjectId
 from bson.objectid import InvalidId
-from mongomantic.config import logger
 
 from .database import MongomanticClient
 from .errors import (
@@ -29,7 +28,7 @@ class BaseRepository(ABC):
         """String representing the MongoDB collection to use when storing this model"""
         pass
 
-    def process_kwargs(self, kwargs: dict):
+    def process_kwargs(self, kwargs: Dict) -> Tuple:
         """Update keyword arguments from human readable to mongo specific"""
         if "id" in kwargs:
             try:
@@ -59,13 +58,16 @@ class BaseRepository(ABC):
             raise WriteError(f"Error inserting document: \n{e}")
         else:
             if res is None:
-                raise WriteError(f"Error inserting document")
+                raise WriteError("Error inserting document")
 
         document["_id"] = res.inserted_id
         return self._model.from_mongo(document)
 
     def get(self, **kwargs) -> Type[MongoDBModel]:
         """Get a unique document based on some filter.
+
+        Args:
+            kwargs: Filter keyword arguments
 
         Raises:
             DoesNotExistError: If object not found
@@ -80,7 +82,7 @@ class BaseRepository(ABC):
             res = MongomanticClient.db.__getattr__(self._collection).find(filter=kwargs, limit=2)
             document = next(res)
         except StopIteration:
-            raise DoesNotExistError(f"Document not found")
+            raise DoesNotExistError("Document not found")
 
         try:
             res = next(res)
@@ -91,13 +93,16 @@ class BaseRepository(ABC):
     def find(self, **kwargs) -> Iterator[Type[MongoDBModel]]:
         """Queries database and filters on kwargs provided.
 
-        Reserved *optional* field names:
-        projection: can either be a list of field names that should be returned in the result set
-                    or a dict specifying the fields to include or exclude. If projection is a list
-                    “_id” will always be returned. Use a dict to exclude fields from the result
-                    (e.g. projection={‘_id’: False}).
-        skip: the number of documents to omit when returning results
-        limit: the maximum number of results to return
+        Args:
+            kwargs: Filter keyword arguments
+
+            Reserved *optional* field names:
+            projection: can either be a list of field names that should be returned in the result set
+                        or a dict specifying the fields to include or exclude. If projection is a list
+                        “_id” will always be returned. Use a dict to exclude fields from the result
+                        (e.g. projection={‘_id’: False}).
+            skip: the number of documents to omit when returning results
+            limit: the maximum number of results to return
 
         Note that invalid query errors may not be detected until the generator is consumed.
         This is because the query is not executed until the result is needed.
@@ -119,5 +124,5 @@ class BaseRepository(ABC):
         except Exception as e:
             raise InvalidQueryError(f"Invalid argument types: {e}")
 
-    def aggregate(pipeline: List[dict]):
+    def aggregate(self, pipeline: List[dict]):
         pass

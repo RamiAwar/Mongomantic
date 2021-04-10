@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Dict, Optional, Type
 
 from abc import ABC
 from datetime import datetime
@@ -33,10 +33,10 @@ class MongoDBModel(ABC, BaseModel):
         }
 
     @classmethod
-    def from_mongo(cls, data: dict):
+    def from_mongo(cls, data: Dict[str, Any]) -> Optional[Type["MongoDBModel"]]:
         """Constructs a pydantic object from mongodb compatible dictionary"""
         if not data:
-            return data
+            return None
 
         id = data.pop("_id", None)  # Convert _id into id
         return cls(**dict(data, id=id))
@@ -54,7 +54,7 @@ class MongoDBModel(ABC, BaseModel):
         )  # whether field aliases should be used as keys in the returned dictionary
 
         # Converting the model to a dictionnary
-        parsed = self.dict(by_alias=by_alias, **kwargs)
+        parsed = self.dict(by_alias=by_alias, exclude_unset=exclude_unset, **kwargs)
 
         # Mongo uses `_id` as default key.
         # if "_id" not in parsed and "id" in parsed:

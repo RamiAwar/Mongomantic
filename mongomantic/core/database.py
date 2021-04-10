@@ -1,22 +1,21 @@
 # # Package # #
-from mongomantic.config import MongoSettings
 from pymongo import MongoClient
+from pymongo.database import Database
 
-__all__ = ["client", "db"]
+__all__ = ["MongomanticClient"]
 
 
 class MongomanticClient:
-    client = None
-    db = None
+    client: MongoClient = None
+    db: Database = None
 
 
-def connect(uri: str, database: str, mock=False):
+def connect(uri: str, database: str, mock: bool = False) -> None:
     if mock:
         try:
             import mongomock
         except ImportError:
             raise RuntimeError("Mongomock needs to be installed for mocking a connection")
-
         MongomanticClient.client = mongomock.MongoClient(uri)
     else:
         MongomanticClient.client = MongoClient(uri)

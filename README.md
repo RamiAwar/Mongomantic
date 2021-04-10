@@ -75,8 +75,9 @@ john = user_repo.find(name="John")
 
 Please submit your vote below.
 
-[![](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20MongoDB%20expressions%20to%20filter%20results)](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20MongoDB%20expressions%20to%20filter%20results/vote)
-[![](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20Python%20operators%20to%20filter%20results)](https://api.gh-polls.com/poll/01F2Y4GNM757FXCJ6VR2TVVYTN/Use%20Python%20operators%20to%20filter%20results/vote)
+<p><a href="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/Simple%20PyMongo%20Wrapper%20-%20Prefer%20speed%20and%20native%20mongodb%20filters/vote"><img src="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/Simple%20PyMongo%20Wrapper%20-%20Prefer%20speed%20and%20native%20mongodb%20filters" alt="">Simple PyMongo Wrapper - Prefer speed and native mongodb filters</a>
+<a href="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/More%20Complex%20Wrapper%20-%20Pythonic%20filters/vote"><img src="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/More%20Complex%20Wrapper%20-%20Pythonic%20filters" alt="">More Complex Wrapper - Pythonic Filters</a></p>
+
 
 ## 🚀 TODO
 

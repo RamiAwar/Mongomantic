@@ -25,3 +25,12 @@ repos:
         entry: poetry run black --config pyproject.toml
         types: [python]
         language: system
+
+  - repo: local
+    hooks:
+    -   id: wily
+        name: wily
+        entry: wily diff hyperchess
+        verbose: true
+        language: python
+        additional_dependencies: [wily]

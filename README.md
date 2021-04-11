@@ -1,12 +1,5 @@
 ![Logo](https://github.com/RamiAwar/mongomantic/raw/main/docs/assets/text_logo.png)
 
-<p align="center">
-    <em>Mongomantic = Pymongo + <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a></em>
-</p>
-
-<p>
-  Mongomantic is an easy-to-use, easy-to-learn wrapper around PyMongo, built around <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models.</p>
-
 <p align='center'>
   <a href="https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild">
     <img src='https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push'>
@@ -60,17 +53,15 @@
   </a>
 </p>
 
+
 <p align="center">
-
-A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine.
-
+    <em>Mongomantic = Pymongo + <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a></em>
 </p>
 
-## Usage
-```
-pip install mongomantic
-```
-
+<p align="center">
+  Mongomantic is a lightweight python MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine. 
+</p>
+  
 ## API
 
 ```python
@@ -97,6 +88,14 @@ user = user_repo.save(user)
 user.id  # ObjectId that was saved
 
 ```
+
+## Usage
+```
+pip install mongomantic
+```
+
+To connect to your database, a connect function similar to mongoengine is provided.
+
 
 ## Your Opinion is Needed
 

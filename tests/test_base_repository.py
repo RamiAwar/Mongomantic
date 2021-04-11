@@ -1,6 +1,7 @@
-from typing import Generator
+from typing import Generator, Type
 
 import pytest
+from mongomantic import BaseRepository, MongoDBModel
 from mongomantic.core.database import connect
 from mongomantic.core.errors import DoesNotExistError, InvalidQueryError, MultipleObjectsReturnedError
 
@@ -11,6 +12,24 @@ from .user_repository import UserRepository
 @pytest.fixture()
 def mongodb():
     connect("localhost:27017", "test", mock=True)
+
+
+def test_repository_definition_without_model_or_collection():
+    class TestRepo(BaseRepository):
+        @property
+        def _model(self) -> Type[MongoDBModel]:
+            return int
+
+    with pytest.raises(TypeError):
+        _ = TestRepo()
+
+    class Test2Repo(BaseRepository):
+        @property
+        def _collection(self) -> Type[MongoDBModel]:
+            return "test"
+
+    with pytest.raises(TypeError):
+        _ = Test2Repo()
 
 
 def test_repository_save(mongodb):

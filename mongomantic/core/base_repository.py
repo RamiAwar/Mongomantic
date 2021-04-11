@@ -20,14 +20,13 @@ class BaseRepository(ABC):
     @property
     @abstractmethod
     def _model(self) -> Type[MongoDBModel]:
-        """User defined schema class, which should be a MongoDBModel derived class"""
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
     def _collection(self) -> str:
         """String representing the MongoDB collection to use when storing this model"""
-        pass
+        raise NotImplementedError
 
     def process_kwargs(self, kwargs: Dict) -> Tuple:
         """Update keyword arguments from human readable to mongo specific"""

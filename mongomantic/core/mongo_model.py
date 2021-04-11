@@ -29,7 +29,7 @@ class MongoDBModel(ABC, BaseModel):
         allow_population_by_field_name = True
         json_encoders = {
             datetime: lambda dt: dt.isoformat(),
-            ObjectId: lambda oid: str(oid),
+            ObjectId: str,
         }
 
     @classmethod

@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "mongomantic"
-version = "0.1.0"
+version = "0.2.0"
 description = "A MongoDB Python ORM, built on Pydantic and PyMongo."
 readme = "README.md"
 authors = [

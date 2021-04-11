@@ -5,7 +5,7 @@
 </p>
 <p>Mongomantic is an easy-to-use, easy-to-learn wrapper around PyMongo, built around <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models.</p>
 
-<div align="center">
+<p align="center">
 
 [![Build status](https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push)](https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild)
 [![Documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://ramiawar.github.io/Mongomantic)
@@ -17,9 +17,13 @@
 [![Semantic Versions](https://img.shields.io/badge/%F0%9F%9A%80-semantic%20versions-informational.svg)](https://github.com/RamiAwar/mongomantic/releases)
 [![License](https://img.shields.io/github/license/RamiAwar/mongomantic)](https://github.com/RamiAwar/mongomantic/blob/main/LICENSE)
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/?branch=main)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
+[![Code Coverage](https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/?branch=main)
+
 A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine.
 
-</div>
+</p>
 
 ## Usage
 ```

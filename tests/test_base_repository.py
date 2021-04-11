@@ -14,7 +14,7 @@ def mongodb():
     connect("localhost:27017", "test", mock=True)
 
 
-def test_repository_definition_without_model_or_collection():
+def test_repository_definition_without_collection():
     class TestRepo(BaseRepository):
         @property
         def _model(self) -> Type[MongoDBModel]:
@@ -23,6 +23,8 @@ def test_repository_definition_without_model_or_collection():
     with pytest.raises(TypeError):
         _ = TestRepo()
 
+
+def test_repository_definition_without_model():
     class Test2Repo(BaseRepository):
         @property
         def _collection(self) -> Type[MongoDBModel]:

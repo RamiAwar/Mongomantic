@@ -20,6 +20,7 @@ class BaseRepository(ABC):
     @property
     @abstractmethod
     def _model(self) -> Type[MongoDBModel]:
+        """User defined schema class, which should be a MongoDBModel derived class"""
         pass
 
     @property

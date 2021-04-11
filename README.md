@@ -22,16 +22,16 @@
 </p>
 
 <p align='center'>
-  <a href="https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild">
-    <img src='https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push'>
-  </a>
-  
   <a href="https://github.com/PyCQA/bandit">
     <img src='https://img.shields.io/badge/security-bandit-green.svg'>
   </a>
   
   <a href="https://github.com/RamiAwar/mongomantic/blob/main/LICENSE">
     <img src='https://img.shields.io/github/license/RamiAwar/mongomantic'>
+  </a>
+  
+  <a href="https://github.com/RamiAwar/mongomantic/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot">
+    <img src='https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg'>
   </a>
 </p>
  
@@ -42,10 +42,6 @@
   
   <a href="https://github.com/RamiAwar/mongomantic/releases">
     <img src='https://img.shields.io/badge/%F0%9F%9A%80-semantic%20versions-informational.svg'>
-  </a>
-  
-  <a href="https://github.com/RamiAwar/mongomantic/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot">
-    <img src='https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg'>
   </a>
 </p>
 

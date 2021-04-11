@@ -1,4 +1,4 @@
-![Logo](https://github.com/RamiAwar/mongomantic/blob/main/docs/assets/text_logo.png)
+![Logo](https://github.com/RamiAwar/mongomantic/raw/main/docs/assets/text_logo.png)
 
 <p align="center">
     <em>Mongomantic = Pymongo + <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a></em>
@@ -8,6 +8,8 @@
 <div align="center">
 
 [![Build status](https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push)](https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild)
+
+[![Documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://ramiawar.github.io/Mongomantic)
 
 <!-- [![Python Version](https://img.shields.io/pypi/pyversions/mongomantic.svg)](https://pypi.org/project/mongomantic/)-->
 
@@ -22,6 +24,11 @@
 A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine.
 
 </div>
+
+## Usage
+```
+pip install mongomantic
+```
 
 ## API
 

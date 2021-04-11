@@ -30,7 +30,7 @@ repos:
     hooks:
     -   id: wily
         name: wily
-        entry: wily diff hyperchess
+        entry: wily diff mongomantic
         verbose: true
         language: python
         additional_dependencies: [wily]

@@ -1,4 +1,4 @@
-from mongomantic.core.base_repository import BaseRepository
+from mongomantic import BaseRepository
 
 from .user import User
 

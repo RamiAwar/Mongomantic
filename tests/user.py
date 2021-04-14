@@ -1,4 +1,4 @@
-from mongomantic.core.mongo_model import MongoDBModel
+from mongomantic import MongoDBModel
 
 
 class User(MongoDBModel):

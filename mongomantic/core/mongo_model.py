@@ -21,7 +21,7 @@ class OID:
             raise ValueError("Invalid object ID")
 
 
-class MongoDBModel(ABC, BaseModel):
+class MongoDBModel(BaseModel, ABC):
 
     id: Optional[OID]
 

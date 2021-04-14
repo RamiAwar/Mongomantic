@@ -1,35 +1,68 @@
 ![Logo](https://github.com/RamiAwar/mongomantic/raw/main/docs/assets/text_logo.png)
 
+<p align='center'>
+  <a href="https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild">
+    <img src='https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push'>
+  </a>
+  
+  <a href="https://ramiawar.github.io/Mongomantic">
+    <img src='https://img.shields.io/badge/docs-passing-brightgreen'>
+  </a>
+  
+  <a href="https://pypi.org/project/mongomantic/">
+    <img src='https://img.shields.io/pypi/v/mongomantic?color=green'>
+  </a>
+</p>
+
+<p align='center'>
+  <a href="https://github.com/PyCQA/bandit">
+    <img src='https://img.shields.io/badge/security-bandit-green.svg'>
+  </a>
+  
+  <a href="https://github.com/RamiAwar/mongomantic/blob/main/LICENSE">
+    <img src='https://img.shields.io/github/license/RamiAwar/mongomantic'>
+  </a>
+  
+  <a href="https://github.com/RamiAwar/mongomantic/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot">
+    <img src='https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg'>
+  </a>
+</p>
+ 
+<p align='center'>
+  <a href="https://github.com/RamiAwar/mongomantic/blob/master/.pre-commit-config.yaml">
+    <img src='https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white'>
+  </a>
+  
+  <a href="https://github.com/RamiAwar/mongomantic/releases">
+    <img src='https://img.shields.io/badge/%F0%9F%9A%80-semantic%20versions-informational.svg'>
+  </a>
+</p>
+
+
+<p align='center'>
+  <a href="https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/?branch=main">
+  <img src='https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/quality-score.png?b=main'>
+  </a>
+  
+  <a href="https://scrutinizer-ci.com/code-intelligence">
+    <img src='https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/code-intelligence.svg?b=main'>
+  </a>
+  
+  <a href="https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/?branch=main">
+    <img src='https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/coverage.png?b=main'>
+  </a>
+</p>
+
+<br><br><br><br>
+
 <p align="center">
     <em>Mongomantic = Pymongo + <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a></em>
 </p>
-<p>Mongomantic is an easy-to-use, easy-to-learn wrapper around PyMongo, built around <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models.</p>
 
-<div align="center">
-
-[![Build status](https://github.com/RamiAwar/mongomantic/workflows/build/badge.svg?branch=main&event=push)](https://github.com/RamiAwar/mongomantic/actions?query=workflow%3Abuild)
-
-[![Documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://ramiawar.github.io/Mongomantic)
-
-<!-- [![Python Version](https://img.shields.io/pypi/pyversions/mongomantic.svg)](https://pypi.org/project/mongomantic/)-->
-
-[![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/RamiAwar/mongomantic/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
-
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Security: bandit](https://img.shields.io/badge/security-bandit-green.svg)](https://github.com/PyCQA/bandit)
-[![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/RamiAwar/mongomantic/blob/master/.pre-commit-config.yaml)
-[![Semantic Versions](https://img.shields.io/badge/%F0%9F%9A%80-semantic%20versions-informational.svg)](https://github.com/RamiAwar/mongomantic/releases)
-[![License](https://img.shields.io/github/license/RamiAwar/mongomantic)](https://github.com/RamiAwar/mongomantic/blob/main/LICENSE)
-
-A lightweight MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine.
-
-</div>
-
-## Usage
-```
-pip install mongomantic
-```
-
+<p align="center">
+  Mongomantic is a lightweight python MongoDB ORM based on Pydantic and PyMongo, heavily inspired by Mongoengine. 
+</p>
+  
 ## API
 
 ```python
@@ -56,6 +89,14 @@ user = user_repo.save(user)
 user.id  # ObjectId that was saved
 
 ```
+
+## Usage
+```
+pip install mongomantic
+```
+
+To connect to your database, a connect function similar to mongoengine is provided.
+
 
 ## Your Opinion is Needed
 

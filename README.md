@@ -38,7 +38,6 @@
   </a>
 </p>
 
-
 <p align='center'>
   <a href="https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/?branch=main">
   <img src='https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/quality-score.png?b=main'>
@@ -74,29 +73,26 @@ class User(MongoDBModel):
     last_name: str
 
 class UserRepository(BaseRepository):
-    @property
-    def _model(self):  # Define model type
-        return User
 
-    @property
-    def _collection(self):  # Define collection name
-        return "user"
+    class Meta:  # Required internal class
+        model = User  # Define model type
+        collection = "user"  # Define collection name
+
 
 user = User(first_name="John", last_name="Smith")
-user_repo = UserRepository()
 
-user = user_repo.save(user)
+user = UserRepository.save(user)  # PyMongo wrapping classmethods
 user.id  # ObjectId that was saved
 
 ```
 
 ## Usage
+
 ```
 pip install mongomantic
 ```
 
 To connect to your database, a connect function similar to mongoengine is provided.
-
 
 ## Your Opinion is Needed
 
@@ -105,27 +101,26 @@ The first direction would result in the following API:
 
 ```
 # Direct pymongo wrapper
-users = user_repo.find({"$and": [{"age": {"$gt": 12}}, {"name": "John"}]})
+users = UserRepository.find({"$and": [{"age": {"$gt": 12}}, {"name": "John"}]})
 
 # But matches can be done as keyword arguments
-john = user_repo.find(name="John")
+john = UserRepository.find(name="John")
 ```
 
 On the other hand, a more complex version of Mongomantic could lead to:
 
 ```
 # More Pythonic way of writing queries
-users = user_repo.find(User.age > 12, name="John")
+users = UserRepository.find(User.age > 12, name="John")
 
 # Matches still compact
-john = user_repo.find(name="John")
+john = UserRepository.find(name="John")
 ```
 
 Please submit your vote below.
 
 <p><a href="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/Simple%20PyMongo%20Wrapper%20-%20Prefer%20speed%20and%20native%20mongodb%20filters/vote"><img src="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/Simple%20PyMongo%20Wrapper%20-%20Prefer%20speed%20and%20native%20mongodb%20filters" alt="">Simple PyMongo Wrapper - Prefer speed and native mongodb filters</a>
 <a href="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/More%20Complex%20Wrapper%20-%20Pythonic%20filters/vote"><img src="https://api.gh-polls.com/poll/01F2Y55FJSGXFMJW97Z143C6E0/More%20Complex%20Wrapper%20-%20Pythonic%20filters" alt="">More Complex Wrapper - Pythonic Filters</a></p>
-
 
 ## 🚀 TODO
 
@@ -135,9 +130,9 @@ Please submit your vote below.
 - [x] BaseRepository responsible for all operations (instead of the model itself)
 - [ ] ProductionRepository derived from BaseRepository with all errors handled
 - [ ] Repository/model plugin framework (ex. SyncablePlugin, TimestampedPlugin, etc.)
-- [ ] Wrapper for aggregation pipelines
+- [x] Wrapper for aggregation pipelines
 - [x] Mongomock tests
-- [ ] Flexible connect() function wrapper around PyMongo client (aliases, replica sets, retry writes, etc.)
+- [x] Flexible connect() function wrapper around PyMongo client (aliases, replica sets, retry writes, etc.)
 - [ ] Clean up imports and expose essentials in main file
 
 ## 🛡 License

@@ -1,6 +1,6 @@
 from typing import Dict, Iterator, List, Tuple, Type
 
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 
 from bson import ObjectId
 from bson.objectid import InvalidId
@@ -16,19 +16,40 @@ from .errors import (
 from .mongo_model import MongoDBModel
 
 
-class BaseRepository(ABC):
-    @property
-    @abstractmethod
-    def _model(self) -> Type[MongoDBModel]:
-        raise NotImplementedError
+class ABRepositoryMeta(ABCMeta):
+    """Abstract Base Repository Metaclass
 
-    @property
-    @abstractmethod
-    def _collection(self) -> str:
-        """String representing the MongoDB collection to use when storing this model"""
-        raise NotImplementedError
+    This Metaclass ensures that any concrete implementations of BaseRepository
+    include all necessary definitions, in order to decrease user errors.
+    """
 
-    def process_kwargs(self, kwargs: Dict) -> Tuple:
+    def __new__(cls, name, bases, dct):
+        base_repo = super().__new__(cls, name, bases, dct)
+        meta = base_repo.__dict__.get("Meta", False)
+        if not meta:
+            raise NotImplementedError("Internal 'Meta' not implemented")
+        else:
+            # Check existence of model and collection
+            if not (meta.__dict__.get("model", False) and meta.__dict__.get("collection", False)):
+                raise NotImplementedError("'model' or 'collection' properties are missing from internal Meta class")
+
+        return base_repo
+
+
+class BaseRepository(metaclass=ABRepositoryMeta):
+    class Meta:
+        @property
+        def model(self) -> Type[MongoDBModel]:
+            """Model class that subclasses MongoDBModel"""
+            raise NotImplementedError
+
+        @property
+        def collection(self) -> str:
+            """String representing the MongoDB collection to use when storing this model"""
+            raise NotImplementedError
+
+    @classmethod
+    def process_kwargs(cls, kwargs: Dict) -> Tuple:
         """Update keyword arguments from human readable to mongo specific"""
         if "id" in kwargs:
             try:
@@ -43,16 +64,17 @@ class BaseRepository(ABC):
         limit = kwargs.pop("limit", 0)
 
         for key in kwargs:
-            if key not in self._model.__fields__:
-                raise FieldDoesNotExistError(f"Field {key} does not exist for model {self._model}")
+            if key not in cls.Meta.model.__fields__:
+                raise FieldDoesNotExistError(f"Field {key} does not exist for model {cls.Meta.model}")
 
         return projection, skip, limit
 
-    def save(self, model) -> Type[MongoDBModel]:
+    @classmethod
+    def save(cls, model) -> Type[MongoDBModel]:
         """Saves object in MongoDB"""
         try:
             document = model.to_mongo()
-            res = MongomanticClient.db.__getattr__(self._collection).insert_one(document)
+            res = MongomanticClient.db.__getattr__(cls.Meta.collection).insert_one(document)
         except Exception as e:
             res = None
             raise WriteError(f"Error inserting document: \n{e}")
@@ -61,9 +83,10 @@ class BaseRepository(ABC):
                 raise WriteError("Error inserting document")
 
         document["_id"] = res.inserted_id
-        return self._model.from_mongo(document)
+        return cls.Meta.model.from_mongo(document)
 
-    def get(self, **kwargs) -> Type[MongoDBModel]:
+    @classmethod
+    def get(cls, **kwargs) -> Type[MongoDBModel]:
         """Get a unique document based on some filter.
 
         Args:
@@ -76,10 +99,10 @@ class BaseRepository(ABC):
         Returns:
             Type[MongoDBModel]: Matching model
         """
-        self.process_kwargs(kwargs)
+        cls.process_kwargs(kwargs)
 
         try:
-            res = MongomanticClient.db.__getattr__(self._collection).find(filter=kwargs, limit=2)
+            res = MongomanticClient.db.__getattr__(cls.Meta.collection).find(filter=kwargs, limit=2)
             document = next(res)
         except StopIteration:
             raise DoesNotExistError("Document not found")
@@ -88,9 +111,10 @@ class BaseRepository(ABC):
             res = next(res)
             raise MultipleObjectsReturnedError("2 or more items returned, instead of 1")
         except StopIteration:
-            return self._model.from_mongo(document)
+            return cls.Meta.model.from_mongo(document)
 
-    def find(self, **kwargs) -> Iterator[Type[MongoDBModel]]:
+    @classmethod
+    def find(cls, **kwargs) -> Iterator[Type[MongoDBModel]]:
         """Queries database and filters on kwargs provided.
 
         Args:
@@ -113,21 +137,22 @@ class BaseRepository(ABC):
         Yields:
             Iterator[Type[MongoDBModel]]: Generator that wraps PyMongo cursor and transforms documents to models
         """
-        projection, skip, limit = self.process_kwargs(kwargs)
+        projection, skip, limit = cls.process_kwargs(kwargs)
 
         try:
-            results = MongomanticClient.db.__getattr__(self._collection).find(
+            results = MongomanticClient.db.__getattr__(cls.Meta.collection).find(
                 filter=kwargs, projection=projection, skip=skip, limit=limit
             )
             for result in results:
-                yield self._model.from_mongo(result)
+                yield cls.Meta.model.from_mongo(result)
         except Exception as e:
             raise InvalidQueryError(f"Invalid argument types: {e}")
 
-    def aggregate(self, pipeline: List[Dict]):
+    @classmethod
+    def aggregate(cls, pipeline: List[Dict]):
         try:
-            results = MongomanticClient.db.__getattr__(self._collection).aggregate(pipeline)
+            results = MongomanticClient.db.__getattr__(cls.Meta.collection).aggregate(pipeline)
             for result in results:
-                yield self._model.from_mongo(result)
+                yield cls.Meta.model.from_mongo(result)
         except Exception as e:
             raise InvalidQueryError(f"Error executing pipeline: {e}")

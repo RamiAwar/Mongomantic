@@ -15,30 +15,25 @@ def mongodb():
 
 
 def test_repository_definition_without_collection():
-    class TestRepo(BaseRepository):
-        @property
-        def _model(self) -> Type[MongoDBModel]:
-            return int
+    with pytest.raises(NotImplementedError):
 
-    with pytest.raises(TypeError):
-        _ = TestRepo()
+        class TestRepo(BaseRepository):
+            class Meta:
+                model = User
 
 
 def test_repository_definition_without_model():
-    class Test2Repo(BaseRepository):
-        @property
-        def _collection(self) -> Type[MongoDBModel]:
-            return "test"
+    with pytest.raises(NotImplementedError):
 
-    with pytest.raises(TypeError):
-        _ = Test2Repo()
+        class TestRepo(BaseRepository):
+            class Meta:
+                collection = "user"
 
 
 def test_repository_save(mongodb):
     user = User(first_name="John", last_name="Smith", email="john@google.com", age=29)
 
-    user_repo = UserRepository()
-    user = user_repo.save(user)
+    user = UserRepository.save(user)
 
     assert user
     assert user.id
@@ -49,37 +44,35 @@ def test_repository_save(mongodb):
 def example_user(mongodb) -> User:
     user = User(first_name="John", last_name="Smith", email="john@google.com", age=29)
 
-    user_repo = UserRepository()
-    return user_repo.save(user)
+    return UserRepository.save(user)
 
 
 def test_repository_get(example_user):
 
-    user = UserRepository().get(age=example_user.age)
+    user = UserRepository.get(age=example_user.age)
     assert user
     assert user.first_name == example_user.first_name
 
 
 def test_repository_get_does_not_exist(mongodb):
     with pytest.raises(DoesNotExistError):
-        UserRepository().get(age=1)
+        UserRepository.get(age=1)
 
 
 def test_repository_get_with_duplicate(mongodb):
-    user_repo = UserRepository()
 
     user = User(first_name="John", last_name="Smith", email="john@google.com", age=29)
-    user_repo.save(user)
+    UserRepository.save(user)
 
     duplicate = User(first_name="John", last_name="Smith", email="john@google.com", age=29)
-    user_repo.save(duplicate)
+    UserRepository.save(duplicate)
 
     with pytest.raises(MultipleObjectsReturnedError):
-        user_repo.get(age=29)
+        UserRepository.get(age=29)
 
 
 def test_repository_find(example_user):
-    users = UserRepository().find(first_name="John")
+    users = UserRepository.find(first_name="John")
 
     assert isinstance(users, Generator)
     users_list = list(users)
@@ -90,14 +83,14 @@ def test_repository_find(example_user):
 
 
 def test_repository_find_nonexistent(mongodb):
-    users = UserRepository().find(first_name="X")
+    users = UserRepository.find(first_name="X")
 
     assert isinstance(users, Generator)
     assert len(list(users)) == 0
 
 
 def test_repository_find_invalid_filter(mongodb):
-    users = UserRepository().find(first_name={"$tf": "test"})
+    users = UserRepository.find(first_name={"$tf": "test"})
     assert isinstance(users, Generator)
 
     with pytest.raises(InvalidQueryError):
@@ -106,7 +99,7 @@ def test_repository_find_invalid_filter(mongodb):
 
 def test_repository_aggregate(example_user):
     john = next(
-        UserRepository().aggregate(
+        UserRepository.aggregate(
             [
                 {"$match": {"first_name": "John"}},
             ]

@@ -1,6 +1,6 @@
 from typing import Dict, Iterator, List, Tuple, Type
 
-from abc import ABC, ABCMeta, abstractmethod
+from abc import ABCMeta
 
 from bson import ObjectId
 from bson.objectid import InvalidId

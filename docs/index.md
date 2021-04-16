@@ -22,7 +22,7 @@ Mongomantic just requires a pydantic model.
 Basic CRUD operations are exposed through a base repository that can be subclassed.
 This is an fully functioning example of how Mongomantic would be used:
 
-```python hl_lines="4 8 20"
+```python hl_lines="4 8 10 17"
 from mongomantic import BaseRepository, MongoDBModel
 
 
@@ -31,18 +31,15 @@ class User(MongoDBModel):
     last_name: str
 
 class UserRepository(BaseRepository):
-    @property
-    def _model(self):  # Define model type
-        return User
 
-    @property
-    def _collection(self):  # Define collection name
-        return "user"
+    class Meta:  # Required internal class
+        model = User  # Define model type
+        collection = "user"  # Define collection name
+
 
 user = User(first_name="John", last_name="Smith")
-user_repo = UserRepository()
 
-user = user_repo.save(user)
+user = UserRepository.save(user)  # PyMongo wrapping classmethods
 user.id  # ObjectId that was saved
 
 ```

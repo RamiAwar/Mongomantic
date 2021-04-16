@@ -22,9 +22,10 @@ Mongomantic just requires a pydantic model.
 Basic CRUD operations are exposed through a base repository that can be subclassed.
 This is an fully functioning example of how Mongomantic would be used:
 
-```python hl_lines="4 8 10 17"
-from mongomantic import BaseRepository, MongoDBModel
+```python hl_lines="5 9 11 18"
+from mongomantic import BaseRepository, MongoDBModel, connect
 
+connect("localhost:27017", "test_db")  # Setup mongodb connection
 
 class User(MongoDBModel):
     first_name: str

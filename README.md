@@ -65,8 +65,9 @@
 ## API
 
 ```python
-from mongomantic import BaseRepository, MongoDBModel
+from mongomantic import BaseRepository, MongoDBModel, connect
 
+connect("localhost:27017", "test_db")  # Setup mongodb connection
 
 class User(MongoDBModel):
     first_name: str

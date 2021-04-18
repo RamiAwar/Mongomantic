@@ -3,6 +3,7 @@ __all__ = [
     "InvalidQueryError",
     "DoesNotExistError",
     "MultipleObjectsReturnedError",
+    "FieldDoesNotExistError",
 ]
 
 

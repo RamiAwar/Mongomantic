@@ -95,6 +95,37 @@ pip install mongomantic
 
 To connect to your database, a connect function similar to mongoengine is provided.
 
+```
+from mongomantic import connect
+
+connect("localhost:27017", "test_db")  # Setup mongodb connection
+```
+
+For production use, you can either handle the errors thrown by BaseRepository in case of errors on your own, or you can use SafeRepository which handles all the errors for you and logs them, while returning meaningful safe values like `None` and `[]`. Usage is exactly similar to using BaseRepository.
+
+```python
+from mongomantic import SafeRepository, MongoDBModel, connect
+
+connect("localhost:27017", "test_db")  # Setup mongodb connection
+
+class User(MongoDBModel):
+    first_name: str
+    last_name: str
+
+class UserRepository(SafeRepository):
+
+    class Meta:  # Required internal class
+        model = User  # Define model type
+        collection = "user"  # Define collection name
+
+user = UserRepository.get(id="123")  # DoesNotExist error handled
+
+assert user is None
+
+```
+
+Similar to this example, all other errors are handled.
+
 ## Your Opinion is Needed
 
 Mongomantic can be kept as a simple wrapper around PyMongo, or developed into a miniature version of Mongoengine that's built on Pydantic.
@@ -129,7 +160,7 @@ Please submit your vote below.
 - [x] Basic API similar to mongoengine, without any queryset logic
 - [x] Built on Pydantic models, no other schema required
 - [x] BaseRepository responsible for all operations (instead of the model itself)
-- [ ] ProductionRepository derived from BaseRepository with all errors handled
+- [x] SafeRepository derived from BaseRepository with all errors handled
 - [ ] Repository/model plugin framework (ex. SyncablePlugin, TimestampedPlugin, etc.)
 - [x] Wrapper for aggregation pipelines
 - [x] Mongomock tests

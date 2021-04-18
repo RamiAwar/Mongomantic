@@ -12,8 +12,7 @@
 Pymongo offers a very raw set of CRUD operations, and is not an <a href="https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a">Object Relational Mapper</a>.
 
 Other ORMs like Mongoengine (which Mongomantic is inspired heavily by) require their own schema definition.
-This means that if you want to use Pydantic's data validation along with an ORM like Mongoengine, you would have to
-write two schemas, along with handling the conversion back and forth.
+This means that if you want to use Pydantic's data validation along with an ORM like Mongoengine, you would have to write two schemas, along with handling your model conversion back and forth.
 
 Mongomantic just requires a pydantic model.
 
@@ -53,6 +52,45 @@ And that is all you have to do to get a functional ORM with built-in data valida
 - [x] Basic API similar to mongoengine, without any queryset logic
 - [x] Built on <a href="https://pydantic-docs.helpmanual.io/">Pydantic models</a> which allows for data validation with type annotations
 - [x] BaseRepository class supports all CRUD operations and MongoDB aggregation framework
-- [ ] ProductionRepository derived from BaseRepository with all possible errors handled as an example for production use
+- [x] SafeRepository derived from BaseRepository with all possible errors handled as an example for production use
 - [ ] Repository/model plugin framework (ex. SyncablePlugin, TimestampedPlugin, etc.)
 - [x] Mongomock tests
+
+## Usage
+
+```
+pip install mongomantic
+```
+
+To connect to your database, a connect function similar to mongoengine is provided.
+
+```
+from mongomantic import connect
+
+connect("localhost:27017", "test_db")  # Setup mongodb connection
+```
+
+For production use, you can either handle the errors thrown by BaseRepository in case of errors on your own, or you can use SafeRepository which handles all the errors for you and logs them, while returning meaningful safe values like `None` and `[]`. Usage is exactly similar to using BaseRepository.
+
+```python
+from mongomantic import SafeRepository, MongoDBModel, connect
+
+connect("localhost:27017", "test_db")  # Setup mongodb connection
+
+class User(MongoDBModel):
+    first_name: str
+    last_name: str
+
+class UserRepository(SafeRepository):
+
+    class Meta:  # Required internal class
+        model = User  # Define model type
+        collection = "user"  # Define collection name
+
+user = UserRepository.get(id="123")  # DoesNotExist error handled
+
+assert user is None
+
+```
+
+Similar to this example, all other errors are handled.

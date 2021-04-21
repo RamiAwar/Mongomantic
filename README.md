@@ -39,7 +39,9 @@
 </p>
 
 <p align='center'>
-  <img alt="LGTM Grade" src="https://img.shields.io/lgtm/grade/python/github/RamiAwar/Mongomantic">
+  <a href="https://lgtm.com/projects/g/RamiAwar/Mongomantic/context:python">
+    <img alt="LGTM Grade" src="https://img.shields.io/lgtm/grade/python/github/RamiAwar/Mongomantic">
+  </a>
   <a href="https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/?branch=main">
   <img src='https://scrutinizer-ci.com/g/RamiAwar/Mongomantic/badges/quality-score.png?b=main'>
   </a>

@@ -100,7 +100,7 @@ pip install mongomantic
 
 To connect to your database, a connect function similar to mongoengine is provided.
 
-```
+```python
 from mongomantic import connect
 
 connect("localhost:27017", "test_db")  # Setup mongodb connection

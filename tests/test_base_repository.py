@@ -161,14 +161,3 @@ def test_safe_repository_aggregate_error(example_user):
 
     assert isinstance(user, Generator)
     assert list(user) == []
-
-
-def test_index_creation():
-    class TestRepo(BaseRepository):
-        class Meta:
-            model = User
-            collection = "user"
-            indexes = [
-                Index(name="email_index", unique=True, fields=["email"]),
-                Index(name="fullname_index", unique=True, fields=["+first_name", "-last_name"]),
-            ]

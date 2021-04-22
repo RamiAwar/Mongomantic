@@ -13,8 +13,8 @@ class Index(BaseModel):
     fields: List[str] = Field(
         min_items=1,
         description=(
-            "Fields to index. Can be prefixed with '+' or '-' to specify index direction as ascending",
-            "or descending. Prefix with '$' to specify text index.",
+            "Fields to index. Can be prefixed with '+' or '-' to specify index direction as ascending"
+            "or descending. Prefix with '$' to specify text index."
         ),
     )
 

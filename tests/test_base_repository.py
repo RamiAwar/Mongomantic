@@ -1,20 +1,21 @@
-from typing import Generator, List
+from typing import Generator
 
 import pytest
 from mongomantic import BaseRepository
 from mongomantic.core.database import connect
 from mongomantic.core.errors import DoesNotExistError, InvalidQueryError, MultipleObjectsReturnedError
+from mongomantic.core.index import Index
 
 from .user import User
 from .user_repository import SafeUserRepository, UserRepository
 
 
-@pytest.fixture()
+@pytest.fixture(scope="function")
 def mongodb():
     connect("localhost:27017", "test", mock=True)
 
 
-@pytest.fixture(params=[UserRepository, SafeUserRepository])
+@pytest.fixture(scope="function", params=[UserRepository, SafeUserRepository])
 def repository(request):
     return request.param
 
@@ -160,3 +161,14 @@ def test_safe_repository_aggregate_error(example_user):
 
     assert isinstance(user, Generator)
     assert list(user) == []
+
+
+def test_index_creation():
+    class TestRepo(BaseRepository):
+        class Meta:
+            model = User
+            collection = "user"
+            indexes = [
+                Index(name="email_index", unique=True, fields=["email"]),
+                Index(name="fullname_index", unique=True, fields=["+first_name", "-last_name"]),
+            ]

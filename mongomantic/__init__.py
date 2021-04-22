@@ -15,6 +15,7 @@ except PackageNotFoundError:  # pragma: no cover
 
 from mongomantic.core.base_repository import BaseRepository
 from mongomantic.core.database import connect
+from mongomantic.core.index import Index
 from mongomantic.core.mongo_model import MongoDBModel
 
-__all__ = ["BaseRepository", "MongoDBModel", "connect"]
+__all__ = ["BaseRepository", "MongoDBModel", "connect", "Index"]

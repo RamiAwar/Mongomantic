@@ -1,5 +1,3 @@
-from typing import Generator
-
 import pytest
 from mongomantic import BaseRepository, Index, MongoDBModel
 from mongomantic.core.errors import WriteError
@@ -26,7 +24,7 @@ def test_index_creation(mongodb):
     indexes = UserRepository._get_collection().index_information()
 
     assert indexes["email_1"]["unique"]
-    assert indexes["email_1"]["key"] == ("email", 1)
+    assert indexes["email_1"]["key"] == [("email", 1)]
 
     assert indexes["age_1_name_-1"]["unique"]
     assert indexes["age_1_name_-1"]["key"] == [("age", 1), ("name", -1)]

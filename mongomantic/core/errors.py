@@ -25,3 +25,11 @@ class MultipleObjectsReturnedError(Exception):
 
 class FieldDoesNotExistError(Exception):
     pass
+
+
+class IndexCreationError(Exception):
+    pass
+
+
+class DuplicateKeyError(Exception):
+    pass

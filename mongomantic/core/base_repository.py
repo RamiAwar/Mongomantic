@@ -1,14 +1,17 @@
-from typing import Dict, Iterator, List, Tuple, Type
+from typing import Any, Dict, Iterator, List, Tuple, Type
 
 from abc import ABCMeta
 
 from bson import ObjectId
 from bson.objectid import InvalidId
+from mongomantic.core.index import Index
+from pymongo.collection import Collection
 
 from .database import MongomanticClient
 from .errors import (
     DoesNotExistError,
     FieldDoesNotExistError,
+    IndexCreationError,
     InvalidQueryError,
     MultipleObjectsReturnedError,
     WriteError,
@@ -23,8 +26,8 @@ class ABRepositoryMeta(ABCMeta):
     include all necessary definitions, in order to decrease user errors.
     """
 
-    def __new__(cls, name, bases, dct):
-        base_repo = super().__new__(cls, name, bases, dct)
+    def __new__(cls, name: str, bases: Tuple[type, ...], namespace: Dict[str, Any], **kwds: Any):
+        base_repo = super().__new__(cls, name, bases, namespace, **kwds)
         meta = base_repo.__dict__.get("Meta", False)
         if not meta:
             raise NotImplementedError("Internal 'Meta' not implemented")
@@ -47,8 +50,34 @@ class BaseRepository(metaclass=ABRepositoryMeta):
             """String representing the MongoDB collection to use when storing this model"""
             raise NotImplementedError
 
+        @property
+        def indexes(self) -> List[Index]:
+            """List of MongoDB indexes that should be setup for this particular model"""
+            raise NotImplementedError
+
     @classmethod
-    def process_kwargs(cls, kwargs: Dict) -> Tuple:
+    def _get_collection(cls) -> Collection:
+        """Returns a reference to the MongoDB collection, and initializes indexes if first time"""
+        if not hasattr(cls, "_indexes") or cls._indexes is None:
+            cls._indexes = True  # State to know that already checked
+
+            if getattr(cls.Meta, "auto_create_index", True):
+                cls._create_indexes()
+
+        return MongomanticClient.db.__getattr__(cls.Meta.collection)
+
+    @classmethod
+    def _create_indexes(cls):
+        indexes = getattr(cls.Meta, "indexes", False)
+        if indexes:
+            try:
+                pymongo_indexes = [index.to_pymongo() for index in indexes]
+                cls._get_collection().create_indexes(pymongo_indexes)
+            except Exception as e:
+                raise IndexCreationError(f"Failed to create indexes: {e}")
+
+    @classmethod
+    def _process_kwargs(cls, kwargs: Dict) -> Tuple:
         """Update keyword arguments from human readable to mongo specific"""
         if "id" in kwargs:
             try:
@@ -73,13 +102,9 @@ class BaseRepository(metaclass=ABRepositoryMeta):
         """Saves object in MongoDB"""
         try:
             document = model.to_mongo()
-            res = MongomanticClient.db.__getattr__(cls.Meta.collection).insert_one(document)
+            res = cls._get_collection().insert_one(document)
         except Exception as e:
-            res = None
             raise WriteError(f"Error inserting document: \n{e}")
-        else:
-            if res is None:
-                raise WriteError("Error inserting document")
 
         document["_id"] = res.inserted_id
         return cls.Meta.model.from_mongo(document)
@@ -98,16 +123,16 @@ class BaseRepository(metaclass=ABRepositoryMeta):
         Returns:
             Type[MongoDBModel]: Matching model
         """
-        cls.process_kwargs(kwargs)
+        cls._process_kwargs(kwargs)
 
         try:
-            res = MongomanticClient.db.__getattr__(cls.Meta.collection).find(filter=kwargs, limit=2)
+            res = cls._get_collection().find(filter=kwargs, limit=2)
             document = next(res)
         except StopIteration:
             raise DoesNotExistError("Document not found")
 
         try:
-            res = next(res)
+            next(res)
             raise MultipleObjectsReturnedError("2 or more items returned, instead of 1")
         except StopIteration:
             return cls.Meta.model.from_mongo(document)
@@ -136,12 +161,10 @@ class BaseRepository(metaclass=ABRepositoryMeta):
         Yields:
             Iterator[Type[MongoDBModel]]: Generator that wraps PyMongo cursor and transforms documents to models
         """
-        projection, skip, limit = cls.process_kwargs(kwargs)
+        projection, skip, limit = cls._process_kwargs(kwargs)
 
         try:
-            results = MongomanticClient.db.__getattr__(cls.Meta.collection).find(
-                filter=kwargs, projection=projection, skip=skip, limit=limit
-            )
+            results = cls._get_collection().find(filter=kwargs, projection=projection, skip=skip, limit=limit)
             for result in results:
                 yield cls.Meta.model.from_mongo(result)
         except Exception as e:
@@ -150,7 +173,7 @@ class BaseRepository(metaclass=ABRepositoryMeta):
     @classmethod
     def aggregate(cls, pipeline: List[Dict]):
         try:
-            results = MongomanticClient.db.__getattr__(cls.Meta.collection).aggregate(pipeline)
+            results = cls._get_collection().aggregate(pipeline)
             for result in results:
                 yield cls.Meta.model.from_mongo(result)
         except Exception as e:

@@ -96,13 +96,45 @@ user.id  # ObjectId that was saved
 pip install mongomantic
 ```
 
+### Connection to MongoDB
+
 To connect to your database, a connect function similar to mongoengine is provided.
 
-```
+```python
 from mongomantic import connect
 
 connect("localhost:27017", "test_db")  # Setup mongodb connection
 ```
+
+### Repository Usage
+
+The BaseRepository class wraps around MongoDBModel, providing functions to save models into a collection, retrieve models, create indexes, and use the aggregation pipeline syntax on the collection.
+
+To implement a new repository, you must first inherit from BaseRepository and provide an internal Meta class to specify the model and collection being used.
+
+```python hl_lines="3 4"
+class UserRepository(BaseRepository):
+    class Meta:
+        model = User
+        collection = "user"
+```
+
+And that's it! You can now access repository CRUD operations and more. More details found in the [Repositories](repository.md) guide.
+
+Adding indexes is simple using the Mongomantic Index model:
+
+```python hl_lines="2"
+class UserRepository(BaseRepository):
+    class Meta:
+        model = User
+        collection = "user"
+        indexes = [
+            Index(fields=["+first_name"]),
+            Index(fields=["+first_name", "-last_name"], unique=True)
+        ]
+```
+
+### Safe Repository
 
 For production use, you can either handle the errors thrown by BaseRepository in case of errors on your own, or you can use SafeRepository which handles all the errors for you and logs them, while returning meaningful safe values like `None` and `[]`. Usage is exactly similar to using BaseRepository.
 
@@ -134,7 +166,7 @@ Similar to this example, all other errors are handled.
 Mongomantic can be kept as a simple wrapper around PyMongo, or developed into a miniature version of Mongoengine that's built on Pydantic.
 The first direction would result in the following API:
 
-```
+```python
 # Direct pymongo wrapper
 users = UserRepository.find({"$and": [{"age": {"$gt": 12}}, {"name": "John"}]})
 
@@ -144,7 +176,7 @@ john = UserRepository.find(name="John")
 
 On the other hand, a more complex version of Mongomantic could lead to:
 
-```
+```python
 # More Pythonic way of writing queries
 users = UserRepository.find(User.age > 12, name="John")
 

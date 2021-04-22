@@ -1,4 +1,4 @@
-from typing import Generator, List
+from typing import Generator
 
 import pytest
 from mongomantic import BaseRepository
@@ -9,12 +9,12 @@ from .user import User
 from .user_repository import SafeUserRepository, UserRepository
 
 
-@pytest.fixture()
+@pytest.fixture(scope="function")
 def mongodb():
     connect("localhost:27017", "test", mock=True)
 
 
-@pytest.fixture(params=[UserRepository, SafeUserRepository])
+@pytest.fixture(scope="function", params=[UserRepository, SafeUserRepository])
 def repository(request):
     return request.param
 

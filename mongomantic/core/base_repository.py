@@ -27,7 +27,7 @@ class ABRepositoryMeta(ABCMeta):
     """
 
     def __new__(cls, name: str, bases: Tuple[type, ...], namespace: Dict[str, Any], **kwds: Any):
-        base_repo = super().__new__(cls, name, bases, namespace)
+        base_repo = super().__new__(cls, name, bases, namespace, **kwds)
         meta = base_repo.__dict__.get("Meta", False)
         if not meta:
             raise NotImplementedError("Internal 'Meta' not implemented")

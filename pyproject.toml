@@ -52,7 +52,7 @@ safety = "^1.10.3"
 pytest = "^6.2.1"
 pylint = "^2.6.0"
 pydocstyle = "^6.0.0"
-pre-commit = "^2.9.3"
+pre-commit = "^2.12.1"
 mongomock = "^3.22.1"
 flake8 = "^3.9.0"
 

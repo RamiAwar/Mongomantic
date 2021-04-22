@@ -2,17 +2,14 @@ from typing import Dict, Iterator, List, Tuple, Type
 
 from abc import ABCMeta
 
-import pymongo
 from bson import ObjectId
 from bson.objectid import InvalidId
 from mongomantic.core.index import Index
 from pymongo.collection import Collection
-from pymongo.operations import IndexModel
 
 from .database import MongomanticClient
 from .errors import (
     DoesNotExistError,
-    DuplicateKeyError,
     FieldDoesNotExistError,
     IndexCreationError,
     InvalidQueryError,

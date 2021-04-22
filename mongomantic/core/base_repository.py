@@ -28,10 +28,9 @@ class ABRepositoryMeta(ABCMeta):
         meta = base_repo.__dict__.get("Meta", False)
         if not meta:
             raise NotImplementedError("Internal 'Meta' not implemented")
-        else:
-            # Check existence of model and collection
-            if not (meta.__dict__.get("model", False) and meta.__dict__.get("collection", False)):
-                raise NotImplementedError("'model' or 'collection' properties are missing from internal Meta class")
+        # Check existence of model and collection
+        if not (meta.__dict__.get("model", False) and meta.__dict__.get("collection", False)):
+            raise NotImplementedError("'model' or 'collection' properties are missing from internal Meta class")
 
         return base_repo
 

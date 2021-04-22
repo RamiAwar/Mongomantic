@@ -104,11 +104,7 @@ class BaseRepository(metaclass=ABRepositoryMeta):
             document = model.to_mongo()
             res = cls._get_collection().insert_one(document)
         except Exception as e:
-            res = None
             raise WriteError(f"Error inserting document: \n{e}")
-        else:
-            if res is None:
-                raise WriteError("Error inserting document")
 
         document["_id"] = res.inserted_id
         return cls.Meta.model.from_mongo(document)
@@ -136,7 +132,7 @@ class BaseRepository(metaclass=ABRepositoryMeta):
             raise DoesNotExistError("Document not found")
 
         try:
-            res = next(res)
+            next(res)
             raise MultipleObjectsReturnedError("2 or more items returned, instead of 1")
         except StopIteration:
             return cls.Meta.model.from_mongo(document)

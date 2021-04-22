@@ -166,7 +166,7 @@ Similar to this example, all other errors are handled.
 Mongomantic can be kept as a simple wrapper around PyMongo, or developed into a miniature version of Mongoengine that's built on Pydantic.
 The first direction would result in the following API:
 
-```
+```python
 # Direct pymongo wrapper
 users = UserRepository.find({"$and": [{"age": {"$gt": 12}}, {"name": "John"}]})
 
@@ -176,7 +176,7 @@ john = UserRepository.find(name="John")
 
 On the other hand, a more complex version of Mongomantic could lead to:
 
-```
+```python
 # More Pythonic way of writing queries
 users = UserRepository.find(User.age > 12, name="John")
 

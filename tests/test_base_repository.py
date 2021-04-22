@@ -4,7 +4,6 @@ import pytest
 from mongomantic import BaseRepository
 from mongomantic.core.database import connect
 from mongomantic.core.errors import DoesNotExistError, InvalidQueryError, MultipleObjectsReturnedError
-from mongomantic.core.index import Index
 
 from .user import User
 from .user_repository import SafeUserRepository, UserRepository

@@ -1,4 +1,4 @@
-from typing import Dict, Iterator, List, Tuple, Type
+from typing import Any, Dict, Iterator, List, Tuple, Type
 
 from abc import ABCMeta
 
@@ -26,8 +26,8 @@ class ABRepositoryMeta(ABCMeta):
     include all necessary definitions, in order to decrease user errors.
     """
 
-    def __new__(cls, name, bases, dct):
-        base_repo = super().__new__(cls, name, bases, dct)
+    def __new__(cls, name: str, bases: Tuple[type, ...], namespace: Dict[str, Any], **kwds: Any):
+        base_repo = super().__new__(cls, name, bases, namespace)
         meta = base_repo.__dict__.get("Meta", False)
         if not meta:
             raise NotImplementedError("Internal 'Meta' not implemented")

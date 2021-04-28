@@ -21,3 +21,7 @@ def connect(uri: str, database: str, mock: bool = False) -> None:
         MongomanticClient.client = MongoClient(uri)
 
     MongomanticClient.db = MongomanticClient.client.__getattr__(database)
+
+
+def disconnect() -> None:
+    MongomanticClient.client.close()

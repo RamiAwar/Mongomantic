@@ -37,7 +37,7 @@ importlib_metadata = {version = ">=1.6,<5.0", python = "<3.8"}
 rich = "^9.8.2"
 bson = "^0.5.10"
 pydantic = "^1.8.1"
-pymongo = "^3.11.3"
+pymongo = ">=3.11.3,<5.0.0"
 requests = "^2.25.1"
 wily = "^1.19.0"
 
